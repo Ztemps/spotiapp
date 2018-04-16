@@ -1,0 +1,86 @@
+<div class="container top-container">
+
+  <div class="row">
+    <div class="col-md-3">
+        <img
+        [src]="artist.images | noimage"
+        alt=""
+        class="img-thumbnail header-image">
+    </div>
+    <div class="col-md-9">
+        <h1> {{ artist.name }}</h1>
+        <hr>
+        <button type="button" class="btn btn-outline-danger" [routerLink]="['/search']">Go Back</button>
+        <a
+        [href]="artist.external_urls?.spotify"
+        target="_blank"
+        role="button" class="btn btn-outline-success">Open Spotify</a>
+      </div>
+  </div>
+
+</div>
+
+<div class="row top-container">
+  <div class="col-md-12">
+      <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Picture</th>
+              <th scope="col">Name</th>
+              <th scope="col">Popularity</th>
+              <th scope="col">Listen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let track of trackList; let i  = index;">
+              <td>{{ i + 1}}</td>
+              <td>
+                <img
+                [src]=" track.album.images | noimage"
+                alt="track.name"
+                class="top-rated-image">
+              </td>
+              <td>{{ track.name }}</td>
+              <td>{{ track.popularity }}%</td>
+              <td *ngIf="track?.preview_url === null">
+                Any preview available
+              </td>
+              <td *ngIf="track?.preview_url !== null">
+                  <iframe [src]="track.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                  <!-- <audio controls>
+                      <source  [src]="track?.preview_url">
+                    </audio> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+
+<!-- <div class="container top-container">
+  <div class="row">
+    <div class="col-md-4">
+      <img [src]="headerImage" alt="headerImage" class="img-thumbnail header-image">
+    </div>
+    <div class="col-md-4">
+      <p>{{ artistName }}</p>
+      <button type="button" class="btn btn-dark" [routerLink]="['/search']">Go Back</button>
+      <button type="button" class="btn btn-dark">
+        <a [href]="spotifyLink">Open Spotify</a>
+      </button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+        <h4>Top Tracks</h4>
+        <hr>
+        <div *ngFor="let track of trackList" class="col-md-4">
+            <img [src]="track.album.images[1].url" class="img-thumbnail top-track-img">
+                <p> {{ track.name }}</p>
+        </div>
+    </div>
+  </div>
+</div>
+ -->
